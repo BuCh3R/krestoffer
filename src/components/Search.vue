@@ -57,13 +57,10 @@ const chosenItem = (id) => {
         <!-- create html elements for each loop iteration -->
         <div v-if="!isItemChosen" v-on:click="chosenItem(item.id)">
           <div>
-            <img v-bind:src="item.itemImage" />
-          </div>
-          <div>
             <div> {{ item.name }} </div>
             <div v-if="!item.isDiscount"> {{ item.price }} kr</div>
             <div v-else> <del>{{ item.price }} kr</del> {{ item.discountPrice }} kr</div>
-            <img v-bind:src="item.img">
+            <!-- <img v-bind:src="item.img"> -->
           </div>
         </div>
       </li>
