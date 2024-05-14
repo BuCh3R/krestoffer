@@ -10,14 +10,14 @@ let isItemChosen = ref(false);
 
 // get api with included search attribute
 const getItems = () => {
-  fetch(`https://test-46cda-default-rtdb.europe-west1.firebasedatabase.app/items.json`, {
+  fetch(`https://krestoffer-254e8-default-rtdb.europe-west1.firebasedatabase.app/items.json`, {
     method: 'GET'
   })
     .then((rawData) => {
       return rawData.json();
     })
     .then((data) => {
-      items.value = data.kashmir
+      items.value = data.items
       results = items.value.filter(obj => {
         return obj.name.toLowerCase().includes(search.value.toLowerCase());
       })
@@ -49,21 +49,21 @@ const chosenItem = (id) => {
   <div v-else>
     <ul>
       <!-- iterates data from array and spits them out in a li -->
-      <li v-for="item in items" :key="item.itemId">
+      <li v-for="item in items" :key="item.id">
         <!-- checks if item has been clicked and has correct id -> then spit out item description section -->
-        <div v-if="isItemChosen && theid==item.itemId">
+        <div v-if="isItemChosen && theid==item.id">
             <!-- insert html here - for when an item is clicked -->
         </div>
         <!-- create html elements for each loop iteration -->
-        <div v-if="!isItemChosen" v-on:click="chosenItem(item.itemId)">
+        <div v-if="!isItemChosen" v-on:click="chosenItem(item.id)">
           <div>
             <img v-bind:src="item.itemImage" />
           </div>
           <div>
             <div> {{ item.name }} </div>
-            <div> {{ item.positionInStore }} </div>
             <div v-if="!item.isDiscount"> {{ item.price }} kr</div>
             <div v-else> <del>{{ item.price }} kr</del> {{ item.discountPrice }} kr</div>
+            <img v-bind:src="item.img">
           </div>
         </div>
       </li>
