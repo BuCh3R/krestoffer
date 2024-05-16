@@ -1,33 +1,14 @@
 <script setup>
 import { ref, watch } from 'vue';
+import { useDatabase } from './DBConnection.vue';
 
-const isLoading = ref(true);
-const items = ref([]);
-const search = ref("");
-let results = ref([]);
 let theid = ref();
 let isItemChosen = ref(false);
 
-// get api with included search attribute
-const getItems = () => {
-  fetch(`https://krestoffer-254e8-default-rtdb.europe-west1.firebasedatabase.app/items.json`, {
-    method: 'GET'
-  })
-    .then((rawData) => {
-      return rawData.json();
-    })
-    .then((data) => {
-      items.value = data.items
-      results = items.value.filter(obj => {
-        return obj.name.toLowerCase().includes(search.value.toLowerCase());
-      })
-      items.value = results;
-    })
-    .finally(() => {
-      isLoading.value = false;
-    });
+const { isLoading, items, search, results, getItems } = useDatabase()
 
-}
+
+
 
 // call getItems on search change
 watch(search, () => {

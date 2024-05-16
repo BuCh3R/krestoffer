@@ -1,6 +1,8 @@
 <script setup>
 import { onMounted, ref } from 'vue';
+import { useDatabase } from './DBConnection.vue';
 
+const { isLoading, items, search, results, getItems } = useDatabase()
 const mapArray = [];
 let canvasMap = ref();
 let ctx = ref();
@@ -28,8 +30,9 @@ function fillArray(direction, collumn, row, amount){
         mapArray[i-1][collumn-1] = 1;
         }
     }
-
 }
+getItems()
+
 
 fillArray("x", 2, 13, 1); // Alpakka silk
 fillArray("x", 5, 19, 1); // Air
@@ -45,7 +48,7 @@ fillArray("x", 21, 23, 1); // Angel
 
 
 
-console.log(mapArray);
+// console.log(mapArray);
 
 
 const drawMap = () => {
@@ -64,10 +67,18 @@ onMounted(drawMap);
 <template>
 <h1>THIS IS MAP</h1>
 <div class="canvas-wrap">
-    <img src="../assets/map-img.jpg" />
+    <!-- <img src="../assets/map-img.jpg" /> -->
     <canvas ref="canvasMap" width=1200 height=700 />
 </div>
+<ul>
+      <!-- iterates data from array and spits them out in a li -->
+      <li v-for="item in items" :key="item.id">
+        <!-- checks if item has been clicked and has correct id -> then spit out item description section -->
+        {{ item.mapRow }}
+        {{ item.mapCol }}
 
+      </li>
+    </ul>
 </template>
 <style>
 img{
