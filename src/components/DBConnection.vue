@@ -1,8 +1,6 @@
 <script>
-// mouse.js
 import { ref } from 'vue'
 
-// by convention, composable function names start with "use"
 export function useDatabase() {
 
     const isLoading = ref(true);
@@ -29,7 +27,7 @@ export function useDatabase() {
       isLoading.value = false;
     });
   }
-  getItems()
+
   return {
     isLoading,
     items,
@@ -39,3 +37,4 @@ export function useDatabase() {
   }
 }
 </script>
+<template></template>

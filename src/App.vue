@@ -4,7 +4,6 @@ import { RouterView } from 'vue-router'
 
 <template>
   <RouterLink to="/">Go to home</RouterLink>
-  <RouterLink to="/MapView">Go to map</RouterLink>
   <RouterView />
 </template>
 
