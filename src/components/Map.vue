@@ -78,7 +78,7 @@ const drawMap = () => {
 </template>
 
 <style>
-img{
+#itemLocationImg{
     position: absolute;
     top: 0;
     left: 0;

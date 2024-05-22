@@ -37,4 +37,3 @@ export function useDatabase() {
   }
 }
 </script>
-<template></template>
