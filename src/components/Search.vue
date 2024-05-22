@@ -1,8 +1,5 @@
 <script setup>
 import { ref, watch } from 'vue';
-import { useDatabase } from './DBConnection.vue';
-
-const { isLoading, items, search, results, getItems } = useDatabase();
 import { RouterView } from 'vue-router';
 
 const isLoading = ref(true);
@@ -35,8 +32,16 @@ const getItems = () => {
 
 // call getItems on search change
 watch(search, () => {
+  isItemChosen.value = false;
   getItems();
 });
+
+// gets id from clicked item and stores it
+const chosenItem = (id) => {
+  getItems();
+  isItemChosen.value = true;
+  return theid = id;
+}
 </script>
 
 <template>
@@ -46,7 +51,6 @@ watch(search, () => {
   <p v-if="isLoading"></p>
   <div v-else>
       <!-- iterates data from array and spits them out in a li -->
-      <li v-for="item in items" :key="item.id">
       <div v-for="item in items" :key="item.id">
         <!-- checks if item has been clicked and has correct id -> then spit out item description section -->
         <div v-if="isItemChosen && theid==item.id">
@@ -72,14 +76,4 @@ watch(search, () => {
     
   </div>
 </div>
-          <RouterLink :to="{ path: `/Map/${item.id}` }">
-            <div>
-              <div> {{ item.name }} </div>
-              <div v-if="!item.isDiscount"> {{ item.price }} kr</div>
-              <div v-else> <del>{{ item.price }} kr</del> {{ item.discountPrice }} kr</div>
-            </div>
-          </RouterLink>
-      </li>
-    </ul>
-  </div>
 </template>
