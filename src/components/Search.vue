@@ -1,5 +1,6 @@
 <script setup>
 import { ref, watch } from 'vue';
+import { RouterView } from 'vue-router';
 
 const isLoading = ref(true);
 const items = ref([]);
@@ -44,29 +45,35 @@ const chosenItem = (id) => {
 </script>
 
 <template>
-  <input type="text" v-model="search"></input>
+  <div class="bodyBox">
+  <div class="headerBox">
+  <input class="inputfield" type="text" v-model="search" placeholder="Søg efter vare her..."></div>
   <p v-if="isLoading"></p>
   <div v-else>
-    <ul>
       <!-- iterates data from array and spits them out in a li -->
-      <li v-for="item in items" :key="item.id">
+      <div v-for="item in items" :key="item.id">
         <!-- checks if item has been clicked and has correct id -> then spit out item description section -->
         <div v-if="isItemChosen && theid==item.id">
             <!-- insert html here - for when an item is clicked -->
         </div>
         <!-- create html elements for each loop iteration -->
-        <div v-if="!isItemChosen" v-on:click="chosenItem(item.id)">
+        <div v-if="!isItemChosen">
           <div>
             <img v-bind:src="item.itemImage" />
           </div>
-          <div>
-            <div> {{ item.name }} </div>
-            <div v-if="!item.isDiscount"> {{ item.price }} kr</div>
-            <div v-else> <del>{{ item.price }} kr</del> {{ item.discountPrice }} kr</div>
-            <img v-bind:src="item.img">
+          <div class="itemBox">
+            <div class="imgBox"><img class="itemImg" v-bind:src="item.img"></div>
+            <div class="textBox">
+            <div class="itemName"> {{ item.name }} </div><br>
+            <p>Pris</p>
+            <div class="itemPrice" v-if="!item.isDiscount"> {{ item.price }} kr</div>
+            <div class="itemPrice" v-else> <del class="itemDiscount">{{ item.price }} kr</del> {{ item.discountPrice }} kr</div><br><br>
+            <div><RouterLink to="/MapView"><button class="mapButton">Se på kort</button></RouterLink></div>
+          </div>
           </div>
         </div>
-      </li>
-    </ul>
+      </div>
+    
   </div>
+</div>
 </template>
