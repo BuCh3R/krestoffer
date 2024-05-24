@@ -1,5 +1,6 @@
 <script setup>
-import { onMounted, ref, watch } from 'vue';
+import { RouterView } from 'vue-router';
+import { ref, watch } from 'vue';
 import { useDatabase } from './DBConnection.vue';
 import { useRoute } from 'vue-router';
 
@@ -25,15 +26,15 @@ for (let i = 0; i < rows; i++) {
 }
 
 // fill multiple fields of 2d array
-function fillArray(direction, collumn, row, amount){
+function fillArray(direction, collumn, row, amount, value){
     if(direction == "x"){
         for(let i = collumn; i < collumn + amount; i++){
-        mapArray[row-1][i-1] = 1;
+        mapArray[row-1][i-1] = value;
         }
     }
     if(direction == "y"){
         for(let i = row; i < row + amount; i++){
-        mapArray[i-1][collumn-1] = 1;
+        mapArray[i-1][collumn-1] = value;
         }
     }
 }
@@ -42,7 +43,7 @@ function fillArray(direction, collumn, row, amount){
 watch(isLoading, () => {
     for(let i=0; i<items.value.length; i++){
         if(items.value[i].id == chosenItemId){
-            fillArray("x", items.value[i].mapCol, items.value[i].mapRow, 1);
+            fillArray("x", items.value[i].mapCol, items.value[i].mapRow, 1, 1);
         }
         drawMap();
     }
@@ -56,23 +57,26 @@ const drawMap = () => {
     for(let y=0; y < mapArray.length; y++){
         for(let x=0; x < mapArray[0].length; x++){
             if([mapArray[y][x]][0] == 1){
-                ctx.drawImage(img, x * tileSize, y * tileSize, tileSize, tileSize);
+                ctx.drawImage(img, x * tileSize - (tileSize / 8), y * tileSize - (tileSize / 8), tileSize*1.2, tileSize*1.2);
             }
         }
     }
 }
-
-
-
-
-
 </script>
 
 <template>
-<h1>THIS IS MAP</h1>
+  <RouterLink to="/">Go to home</RouterLink>
+    <p v-if="isLoading"></p>
+    <div v-else>
+        <div v-for="item in items" :key="item.id">
+            <div v-if="item.id == route.params.id">
+                <h1> {{ item.name }}</h1>
+            </div>
+        </div>
+    </div>
 <div class="canvas-wrap">
     <img id="itemLocationImg" src="../assets/redbutton.png" />
-    <img class="map-img" src="../assets/map-img.jpg" />
+    <img class="map-img" src="../../public/map-img.jpg" />
     <canvas ref="canvasMap" width=1200 height=700 />
 </div>
 </template>
@@ -82,15 +86,15 @@ const drawMap = () => {
     position: absolute;
     top: 0;
     left: 0;
-    width: 1200px;
-    height: 698px;
+    width: 69px;
+    height: 68px;
 }
 .map-img{
     position: absolute;
     top: 0;
     left: 0;
-    width: 1200px;
-    height: 698px;
+    width: 1201px;
+    height: 697px;
 }
 canvas{
     position: absolute;
