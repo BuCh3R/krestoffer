@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useDatabase } from './DBConnection.vue';
 import { RouterView } from 'vue-router';
 
@@ -10,6 +10,7 @@ let imgAnimation = ref();
 let textAnimation = ref();
 let searchContainer = ref();
 let searchField = ref();
+let hand = ref();
 
 // frontpage animation on input click
 function animateSearch(){
@@ -18,14 +19,15 @@ function animateSearch(){
   logoBox.value.classList.add("moveLeft");
   imgAnimation.value.classList.add("flex-20");
   textAnimation.value.classList.add("flex-80");
+  hand.value.classList.add("none");
 }
 
 // call getItems on search change
 watch(search, () => {
   getItems();
 });
-</script>
 
+</script>
 <template>
   <div class="top-wrap">
     <div ref="logoBox" class="searchBodyBox">
@@ -33,8 +35,16 @@ watch(search, () => {
         <img class="imgLogo" src="../assets/redbutton.png" alt="logo, a red button">
       </div>
       <div ref="textAnimation" class="headerBox-text">
-        <h1>KreStoffer</h1>
+        <h2 class="frontpage-headtext">KreStoffer</h2>
       </div>
+    </div>
+  </div>
+  <div ref="hand" class="hand-container">
+    <div>
+      <img src="../../public/hand.jpg">
+    </div>
+    <div class="hand-click">
+      <img src="../../public/hand-click.jpg">
     </div>
   </div>
   <div ref="searchContainer" class="bodyBox">

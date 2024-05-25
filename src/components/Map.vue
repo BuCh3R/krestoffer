@@ -65,12 +65,31 @@ const drawMap = () => {
 </script>
 
 <template>
-  <RouterLink to="/">Go to home</RouterLink>
     <p v-if="isLoading"></p>
     <div v-else>
         <div v-for="item in items" :key="item.id">
             <div v-if="item.id == route.params.id">
-                <h1> {{ item.name }}</h1>
+                <div class="map-flex-container">
+                    <div class="go-back">
+                        <RouterLink to="/"><img class="back-arrow" src="../../public/black-arrow.png" alt="black back arrow icon">Tilbage</RouterLink>
+                    </div>
+                    <div>
+                        <div>
+                            <img class="red-button" src="../assets/redbutton.png" alt="">
+                        </div>
+                        <div>
+                            <h2>{{ item.name }}</h2>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <img class="blue-button" src="../../public/bluebutton.png" alt="blue button (recolor of krestoffer logo)">
+                        </div>
+                        <div>
+                            <h2>Du er her</h2>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -85,25 +104,25 @@ const drawMap = () => {
 #itemLocationImg{
     position: absolute;
     top: 0;
-    left: 0;
+    left: 2.5%;
     width: 69px;
     height: 68px;
 }
 .map-img{
     position: absolute;
     top: 0;
-    left: 0;
+    left: 2.5%;
     width: 1201px;
     height: 697px;
 }
 canvas{
     position: absolute;
     top: 0;
-    left: 0;
+    left: 2.5%;
 }
 .canvas-wrap{
     position: relative;
     top: 0;
-    left: 0;
+    left: 2.5%;
 }
 </style>

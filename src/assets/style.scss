@@ -2,17 +2,19 @@ $primary-backgroundcolor: #ffffff;
 $second-backgroundcolor: #f2f2f2;
 $third-background: #1A1A1A;
 $border: solid 1px #CAC8C8;
-
+$font: Arial, Helvetica, sans-serif;
 
 body {
     width: 100%;
     margin: auto;
     background-color: $primary-backgroundcolor;
 }
-h1{
-    font-size: 28px;
-    font-family: Arial, Helvetica, sans-serif;
+.frontpage-headtext{
     padding-left: 8px;
+}
+h2{
+    font-size: 28px;
+    font-family: $font;
 }
 .bodyBox {
     position: absolute;
@@ -205,4 +207,90 @@ h1{
     margin-left: auto;
     margin-right: 15px;
   }
-  
+.hand-container{
+    position: absolute;
+    top: 70%;
+    left: 60%;
+    z-index: 2;
+    background-color: transparent;
+    animation-name: slide-up;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    div{
+        position: absolute;
+        background-color: transparent;
+        img{
+            width: 54px;
+        }
+    }
+}
+@keyframes slide-up {
+    0%, 20% {top: 70%; left: 60% }
+    80%, 100% {top: 46%; left: 50% }
+}
+.hand-click{
+    opacity: 0;
+    z-index: 3;
+    animation-name: show-click;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+}
+@keyframes show-click {
+    85% { opacity: 0; }
+    90% { opacity: 1; }
+}
+.none{
+    display: none;
+}
+.back-arrow{
+    width: 50px;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+.blue-button, .red-button{
+    width: 42px;
+    padding: 0;
+}
+
+.map-flex-container{
+    margin-left: 5%;
+    width: 1201px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    div{
+        flex-basis: 20%;
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        align-items: center;
+        a{
+            text-decoration: none;
+            color: #000;
+        }
+    }
+    div:nth-of-type(2){
+        flex-basis: 60%;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        div{
+            flex-basis: 50px;
+        }
+        div:nth-of-type(2){
+            flex-basis: content;
+        }
+    }
+    div:nth-of-type(3){
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    div{
+        flex-basis: 50px;
+    }
+    div:nth-of-type(2){
+        flex-basis: content;
+    }
+}
+}
