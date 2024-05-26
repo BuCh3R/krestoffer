@@ -71,7 +71,14 @@ const drawMap = () => {
             <div v-if="item.id == route.params.id">
                 <div class="map-flex-container">
                     <div class="go-back">
-                        <RouterLink to="/"><img class="back-arrow" src="../../public/black-arrow.png" alt="black back arrow icon">Tilbage</RouterLink>
+                        <RouterLink class="inner-flex-wrap" to="/">
+                            <div>
+                                <img class="back-arrow" src="../../public/black-arrow.png" alt="black back arrow icon">
+                            </div>
+                            <div>
+                                <p>Tilbage</p>
+                            </div>
+                        </RouterLink>
                     </div>
                     <div>
                         <div>
@@ -99,30 +106,6 @@ const drawMap = () => {
     <canvas ref="canvasMap" width=1200 height=700 />
 </div>
 </template>
-
 <style>
-#itemLocationImg{
-    position: absolute;
-    top: 0;
-    left: 2.5%;
-    width: 69px;
-    height: 68px;
-}
-.map-img{
-    position: absolute;
-    top: 0;
-    left: 2.5%;
-    width: 1201px;
-    height: 697px;
-}
-canvas{
-    position: absolute;
-    top: 0;
-    left: 2.5%;
-}
-.canvas-wrap{
-    position: relative;
-    top: 0;
-    left: 2.5%;
-}
+
 </style>

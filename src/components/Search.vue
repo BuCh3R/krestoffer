@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { useDatabase } from './DBConnection.vue';
 import { RouterView } from 'vue-router';
 
@@ -41,10 +41,10 @@ watch(search, () => {
   </div>
   <div ref="hand" class="hand-container">
     <div>
-      <img src="../../public/hand.jpg">
+      <img src="../../public/cursor-hand.png">
     </div>
     <div class="hand-click">
-      <img src="../../public/hand-click.jpg">
+      <img src="../../public/cursor-hand-click.png">
     </div>
   </div>
   <div ref="searchContainer" class="bodyBox">

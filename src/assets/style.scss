@@ -246,6 +246,9 @@ h2{
     width: 50px;
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
+    padding: 0;
+    margin: 0;
+    display: block;
 }
 .blue-button, .red-button{
     width: 42px;
@@ -259,19 +262,40 @@ h2{
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    h2{
+        font-weight: 500;
+    }
     div{
         flex-basis: 20%;
         display: flex;
         flex-wrap: wrap;
         width: 100%;
         align-items: center;
-        a{
+    }
+    .go-back{
+        display: flex;
+        flex-direction: column;
+        .inner-flex-wrap{
+            display: flex;
+            flex-wrap: wrap;
+            margin-right: 100px;
+            width: 140px;
+            border: 2px solid #000;
+            border-radius: 4px;
+            padding: 0px 10px;
             text-decoration: none;
             color: #000;
+            p{
+                font-family: $font;
+                font-size: 22px;
+                font-weight: 500;
+                padding-left: 4px;
+                margin: 0;
+            }
         }
     }
     div:nth-of-type(2){
-        flex-basis: 60%;
+        flex-basis: 58%;
         width: 100%;
         display: flex;
         flex-wrap: wrap;
@@ -293,4 +317,32 @@ h2{
         flex-basis: content;
     }
 }
+}
+#itemLocationImg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 69px;
+    height: 68px;
+    margin-left: 2.5%;
+}
+.map-img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1201px;
+    height: 697px;
+    margin-left: 2.5%;
+}
+canvas{
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 2.5%;
+}
+.canvas-wrap{
+    position: relative;
+    top: 0;
+    left: 0;
+    margin-left: 2.5%;
 }
