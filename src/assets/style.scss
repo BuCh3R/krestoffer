@@ -130,32 +130,29 @@ h2{
 
 .textBox {
     display: inline-block;
+    position: relative;
+    top: -10px;
     margin-top: 0px;
     margin-bottom: 9px;
     width: 75%;
     background-color: $second-backgroundcolor;
 }
-
-.searchButton {
-    display: flex;
-    align-items: center;
-    background-color: $primary-backgroundcolor;
-    width: 100%;
-    height: 70px;
-    border: $border;
-    padding-left: 3%;
-    text-align: left;
+.textBox p{
+    position: relative;
+    top: 15px;
+    font-family: $font;
 }
-
 .inputfield {
     background-image: url(searchwide.png);
     background-repeat:no-repeat;
     background-position: right;
-    background-size: 3%;
+    background-size: 7%;
     width: 35%;
     height: 50px;
     border: $border;
     padding-left: 1%;
+    font-family: $font;
+    font-size: 16px;
 
 }
 .expand{
@@ -180,34 +177,36 @@ h2{
     font-weight: bold;
     cursor: pointer;
 }
-
 .itemImg {
     margin-top: 9px;
     margin-left: 30px;
     border: $border;
     height: 180px;
 }
-
-
+.itemName {
+    font-family: $font;
+    font-size: 22px;
+}
 .itemPrice {
     color: #18AA04;
     font-weight: bold;
+    font-family: $font;
+    font-size: 18px;
 }
-
 .itemDiscount {
     color: #9DAB8E;
-    font-weight: normal;
+    font-weight: 400;
+    font-size: 16px;
 }
-
-  .imgSearch {
+.imgSearch {
     float: right;
     padding: 0px;
     height: 30px;
     display: inline;
     margin-left: auto;
     margin-right: 15px;
-  }
-.hand-container{
+}
+.hand-container {
     position: absolute;
     top: 70%;
     left: 60%;
@@ -216,19 +215,20 @@ h2{
     animation-name: slide-up;
     animation-duration: 3s;
     animation-iteration-count: infinite;
-    div{
+    div {
         position: absolute;
         background-color: transparent;
-        img{
+        img {
             width: 54px;
         }
     }
 }
+
 @keyframes slide-up {
-    0%, 20% {top: 70%; left: 60% }
-    80%, 100% {top: 46%; left: 50% }
+    0%, 20% { top: 70%; left: 60% }
+    80%, 100% { top: 46%; left: 50% }
 }
-.hand-click{
+.hand-click {
     opacity: 0;
     z-index: 3;
     animation-name: show-click;
@@ -239,10 +239,10 @@ h2{
     85% { opacity: 0; }
     90% { opacity: 1; }
 }
-.none{
+.none {
     display: none;
 }
-.back-arrow{
+.back-arrow {
     width: 50px;
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
@@ -250,34 +250,34 @@ h2{
     margin: 0;
     display: block;
 }
-.blue-button, .red-button{
+.blue-button, .red-button {
     width: 42px;
     padding: 0;
 }
-.header-shadow{
+.header-shadow {
     box-shadow: 10px 10px 10px #f2f2f2;
 }
-.map-flex-container{
+.map-flex-container {
     margin-left: 5%;
     width: 1201px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    h2{
+    h2 {
         font-weight: 500;
     }
-    div{
+    div {
         flex-basis: 20%;
         display: flex;
         flex-wrap: wrap;
         width: 100%;
         align-items: center;
     }
-    .go-back{
+    .go-back {
         display: flex;
         flex-direction: column;
-        .inner-flex-wrap{
+        .inner-flex-wrap {
             display: flex;
             flex-wrap: wrap;
             margin-right: 100px;
@@ -287,7 +287,7 @@ h2{
             padding: 0px 10px;
             text-decoration: none;
             color: #000;
-            p{
+            p {
                 font-family: $font;
                 font-size: 22px;
                 font-weight: 500;
@@ -296,31 +296,31 @@ h2{
             }
         }
     }
-    div:nth-of-type(2){
+    div:nth-of-type(2) {
         flex-basis: 58%;
         width: 100%;
         display: flex;
         flex-wrap: wrap;
-        div{
+        div {
             flex-basis: 50px;
         }
-        div:nth-of-type(2){
+        div:nth-of-type(2) {
             flex-basis: content;
         }
     }
-    div:nth-of-type(3){
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    div{
-        flex-basis: 50px;
-    }
-    div:nth-of-type(2){
-        flex-basis: content;
+    div:nth-of-type(3) {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        div {
+            flex-basis: 50px;
+        }
+        div:nth-of-type(2) {
+            flex-basis: content;
+        }
     }
 }
-}
-#itemLocationImg{
+#itemLocationImg {
     position: absolute;
     top: 0;
     left: 0;
@@ -328,7 +328,7 @@ h2{
     height: 68px;
     margin-left: 2.5%;
 }
-.map-img{
+.map-img {
     position: absolute;
     top: 0;
     left: 0;
@@ -336,13 +336,13 @@ h2{
     height: 697px;
     margin-left: 2.5%;
 }
-canvas{
+canvas {
     position: absolute;
     top: 0;
     left: 0;
     margin-left: 2.5%;
 }
-.canvas-wrap{
+.canvas-wrap {
     position: relative;
     top: 0;
     left: 0;
