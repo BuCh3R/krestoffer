@@ -69,31 +69,33 @@ const drawMap = () => {
     <div v-else>
         <div v-for="item in items" :key="item.id">
             <div v-if="item.id == route.params.id">
-                <div class="map-flex-container">
-                    <div class="go-back">
-                        <RouterLink class="inner-flex-wrap" to="/">
+                <div class="header-shadow">
+                    <div class="map-flex-container">
+                        <div class="go-back">
+                            <RouterLink class="inner-flex-wrap" to="/">
+                                <div>
+                                    <img class="back-arrow" src="../../public/black-arrow.png" alt="black back arrow icon">
+                                </div>
+                                <div>
+                                    <p>Tilbage</p>
+                                </div>
+                            </RouterLink>
+                        </div>
+                        <div>
                             <div>
-                                <img class="back-arrow" src="../../public/black-arrow.png" alt="black back arrow icon">
+                                <img class="red-button" src="../assets/redbutton.png" alt="">
                             </div>
                             <div>
-                                <p>Tilbage</p>
+                                <h2>{{ item.name }}</h2>
                             </div>
-                        </RouterLink>
-                    </div>
-                    <div>
-                        <div>
-                            <img class="red-button" src="../assets/redbutton.png" alt="">
                         </div>
                         <div>
-                            <h2>{{ item.name }}</h2>
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            <img class="blue-button" src="../../public/bluebutton.png" alt="blue button (recolor of krestoffer logo)">
-                        </div>
-                        <div>
-                            <h2>Du er her</h2>
+                            <div>
+                                <img class="blue-button" src="../../public/bluebutton.png" alt="blue button (recolor of krestoffer logo)">
+                            </div>
+                            <div>
+                                <h2>Du er her</h2>
+                            </div>
                         </div>
                     </div>
                 </div>
