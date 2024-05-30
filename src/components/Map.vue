@@ -39,55 +39,61 @@ function fillArray(direction, collumn, row, amount, value){
     }
 }
 
-
-
+// hard coordinates for route to item
 function markArrayRoute(id){
-    if(id==0){
+    if(id == 0){
         // drops lima garn
         fillArray("y", 29, 15, 11, 2);
         fillArray("x", 14, 15, 15, 2);
         fillArray("y", 14, 15, 5, 2);
         fillArray("x", 14, 20, 4, 2);
         fillArray("y", 17, 20, 7, 2);
-        console.log(mapArray);
-    }else if(id==1){
+    }else if(id == 1){
         // hannah garn fra permin
         fillArray("x", 23, 25, 7, 2);
         fillArray("y", 23, 25, 4, 2)
-        console.log(mapArray);
-    }else if(id==2){
+    }else if(id == 2){
         // drops air garn
         fillArray("y", 29, 15, 11, 2);
         fillArray("x", 14, 15, 15, 2);
         fillArray("y", 14, 15, 7, 2);
         fillArray("x", 6, 21, 9, 2);
-    }else if(id==3){
+    }else if(id == 3){
         // cashmere premium garn fra lang yarns
         fillArray("y", 29, 15, 11, 2);
         fillArray("x", 14, 15, 15, 2);
         fillArray("y", 14, 15, 7, 2);
         fillArray("x", 6, 21, 9, 2);
-    }else if(id==4){
+    }else if(id == 4){
         // alpakka silk garn fra sandnes garn
         fillArray("y", 29, 15, 11, 2);
         fillArray("x", 14, 15, 15, 2);
         fillArray("y", 14, 13, 2, 2);
         fillArray("x", 4, 13, 11, 2);
-    }else if(id==5){
+    }else if(id == 5){
         // organic trio garn fra hjertegarn
-
-    }else if(id==6){
+        fillArray("y", 29, 15, 11, 2);
+        fillArray("x", 19, 15, 10, 2);
+    }else if(id == 6){
         // peer gynt garn fra sandnes garn
-
-    }else if(id==7){
+        fillArray("y", 29, 15, 11, 2);
+        fillArray("x", 14, 15, 15, 2);
+        fillArray("y", 14, 15, 7, 2);
+        fillArray("x", 14, 21, 5, 2);
+        fillArray("y", 18, 21, 2, 2);
+    }else if(id == 7){
         // drops kid silk garn
-
-    }else if(id==8){
+        fillArray("x", 23, 25, 7, 2);
+    }else if(id == 8){
         // kos garn fra sandnes garn
-
-    }else if(id==9){
+        fillArray("y", 29, 15, 11, 2);
+        fillArray("x", 14, 15, 15, 2);
+        fillArray("y", 14, 15, 7, 2);
+        fillArray("x", 9, 21, 6, 2);
+    }else if(id == 9){
         // angel mohair garn fra permin
-
+        fillArray("y", 29, 23, 3, 2);
+        fillArray("x", 23, 23, 7, 2);
     }
 }
 

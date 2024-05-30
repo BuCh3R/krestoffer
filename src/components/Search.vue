@@ -63,6 +63,7 @@ watch(search, () => {
             <div class="textBox">
               <div class="itemName"> {{ item.name }} </div><br>
               <p>Pris</p>
+              <!-- if item is discount stroke normal price and show discountprice else show normal price -->
               <div class="itemPrice" v-if="!item.isDiscount"> {{ item.price }} kr</div>
               <div class="itemPrice" v-else> <del class="itemDiscount">{{ item.price }} kr</del> {{ item.discountPrice }} kr</div><br><br>
               <div><RouterLink :to="{ path: `/Map/${item.id}` }"><button class="mapButton">Se på kort</button></RouterLink></div>
