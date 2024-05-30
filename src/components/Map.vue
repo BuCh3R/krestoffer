@@ -39,11 +39,65 @@ function fillArray(direction, collumn, row, amount, value){
     }
 }
 
+
+
+function markArrayRoute(id){
+    if(id==0){
+        // drops lima garn
+        fillArray("y", 29, 15, 11, 2);
+        fillArray("x", 14, 15, 15, 2);
+        fillArray("y", 14, 15, 5, 2);
+        fillArray("x", 14, 20, 4, 2);
+        fillArray("y", 17, 20, 7, 2);
+        console.log(mapArray);
+    }else if(id==1){
+        // hannah garn fra permin
+        fillArray("x", 23, 25, 7, 2);
+        fillArray("y", 23, 25, 4, 2)
+        console.log(mapArray);
+    }else if(id==2){
+        // drops air garn
+        fillArray("y", 29, 15, 11, 2);
+        fillArray("x", 14, 15, 15, 2);
+        fillArray("y", 14, 15, 7, 2);
+        fillArray("x", 6, 21, 9, 2);
+    }else if(id==3){
+        // cashmere premium garn fra lang yarns
+        fillArray("y", 29, 15, 11, 2);
+        fillArray("x", 14, 15, 15, 2);
+        fillArray("y", 14, 15, 7, 2);
+        fillArray("x", 6, 21, 9, 2);
+    }else if(id==4){
+        // alpakka silk garn fra sandnes garn
+        fillArray("y", 29, 15, 11, 2);
+        fillArray("x", 14, 15, 15, 2);
+        fillArray("y", 14, 13, 2, 2);
+        fillArray("x", 4, 13, 11, 2);
+    }else if(id==5){
+        // organic trio garn fra hjertegarn
+
+    }else if(id==6){
+        // peer gynt garn fra sandnes garn
+
+    }else if(id==7){
+        // drops kid silk garn
+
+    }else if(id==8){
+        // kos garn fra sandnes garn
+
+    }else if(id==9){
+        // angel mohair garn fra permin
+
+    }
+}
+
+
 // match ids from url and item list
 watch(isLoading, () => {
     for(let i=0; i<items.value.length; i++){
         if(items.value[i].id == chosenItemId){
             fillArray("x", items.value[i].mapCol, items.value[i].mapRow, 1, 1);
+            markArrayRoute(chosenItemId);
         }
         drawMap();
     }
@@ -56,8 +110,14 @@ const drawMap = () => {
     ctx.clearRect(0, 0, canvasMap.width, canvasMap.height);
     for(let y=0; y < mapArray.length; y++){
         for(let x=0; x < mapArray[0].length; x++){
+            // draws img where value of 2d array index = 1
             if([mapArray[y][x]][0] == 1){
                 ctx.drawImage(img, x * tileSize - (tileSize / 8), y * tileSize - (tileSize / 8), tileSize*1.2, tileSize*1.2);
+            }
+            // draw dotted line where value of 2d array index = 2
+            if([mapArray[y][x]][0] == 2){
+                ctx.fillStyle = ["", "", "#18AA04"][mapArray[y][x]]
+                ctx.fillRect(x * tileSize, y * tileSize, tileSize/2, tileSize/2)
             }
         }
     }
