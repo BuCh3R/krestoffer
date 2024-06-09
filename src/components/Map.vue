@@ -7,21 +7,22 @@ import { useRoute } from 'vue-router';
 const { isLoading, items, search, results, getItems } = useDatabase();
 const route = useRoute();
 
+getItems();
 const chosenItemId = route.params.id;
-const mapArray = [];
+
 let canvasMap = ref();
 let ctx = ref();
+
+const mapArray = ref([]);
 const rows = 29;
 const columns = 50;
 const tileSize = 24;
 
-getItems();
-
 // set all fields of 2d array to 0
 for (let i = 0; i < rows; i++) {
-  mapArray[i] = [];
+    mapArray.value[i] = [];
   for (let j = 0; j < columns; j++) {
-    mapArray[i][j] = 0;
+    mapArray.value[i][j] = "X";
   }
 }
 
@@ -29,83 +30,153 @@ for (let i = 0; i < rows; i++) {
 function fillArray(direction, collumn, row, amount, value){
     if(direction == "x"){
         for(let i = collumn; i < collumn + amount; i++){
-        mapArray[row-1][i-1] = value;
+            mapArray.value[row-1][i-1] = value;
         }
     }
     if(direction == "y"){
         for(let i = row; i < row + amount; i++){
-        mapArray[i-1][collumn-1] = value;
+            mapArray.value[i-1][collumn-1] = value;
         }
     }
 }
 
-// hard coordinates for route to item
-function markArrayRoute(id){
-    if(id == 0){
-        // drops lima garn
-        fillArray("y", 29, 15, 11, 2);
-        fillArray("x", 14, 15, 15, 2);
-        fillArray("y", 14, 15, 5, 2);
-        fillArray("x", 14, 20, 4, 2);
-        fillArray("y", 17, 20, 7, 2);
-    }else if(id == 1){
-        // hannah garn fra permin
-        fillArray("x", 23, 25, 7, 2);
-        fillArray("y", 23, 25, 4, 2)
-    }else if(id == 2){
-        // drops air garn
-        fillArray("y", 29, 15, 11, 2);
-        fillArray("x", 14, 15, 15, 2);
-        fillArray("y", 14, 15, 7, 2);
-        fillArray("x", 6, 21, 9, 2);
-    }else if(id == 3){
-        // cashmere premium garn fra lang yarns
-        fillArray("y", 29, 15, 11, 2);
-        fillArray("x", 14, 15, 15, 2);
-        fillArray("y", 14, 15, 7, 2);
-        fillArray("x", 6, 21, 9, 2);
-    }else if(id == 4){
-        // alpakka silk garn fra sandnes garn
-        fillArray("y", 29, 15, 11, 2);
-        fillArray("x", 14, 15, 15, 2);
-        fillArray("y", 14, 13, 2, 2);
-        fillArray("x", 4, 13, 11, 2);
-    }else if(id == 5){
-        // organic trio garn fra hjertegarn
-        fillArray("y", 29, 15, 11, 2);
-        fillArray("x", 19, 15, 10, 2);
-    }else if(id == 6){
-        // peer gynt garn fra sandnes garn
-        fillArray("y", 29, 15, 11, 2);
-        fillArray("x", 14, 15, 15, 2);
-        fillArray("y", 14, 15, 7, 2);
-        fillArray("x", 14, 21, 5, 2);
-        fillArray("y", 18, 21, 2, 2);
-    }else if(id == 7){
-        // drops kid silk garn
-        fillArray("x", 23, 25, 7, 2);
-    }else if(id == 8){
-        // kos garn fra sandnes garn
-        fillArray("y", 29, 15, 11, 2);
-        fillArray("x", 14, 15, 15, 2);
-        fillArray("y", 14, 15, 7, 2);
-        fillArray("x", 9, 21, 6, 2);
-    }else if(id == 9){
-        // angel mohair garn fra permin
-        fillArray("y", 29, 23, 3, 2);
-        fillArray("x", 23, 23, 7, 2);
-    }
-}
+function pathing(){
 
+    // standard route
+    fillArray("x", 3, 12, 14, " ");
+    fillArray("x", 3, 16, 11, " ");
+    fillArray("x", 15, 15, 15, " ");
+    fillArray("x", 2, 21, 16, " ");
+    fillArray("x", 2, 20, 10, " ");
+    fillArray("x", 2, 22, 8, " ");
+
+    fillArray("y", 3, 12, 5, " ");
+    fillArray("y", 14, 12, 10, " ");
+    fillArray("y", 17, 19, 10, " ");
+    fillArray("y", 29, 15, 11, " ");
+    fillArray("y", 23, 15, 14, " ");
+
+    // path from standard route to items
+    fillArray("x", 14, 19, 4, " ");
+    fillArray("x", 23, 25, 6, " ");
+    fillArray("x", 17, 16, 5, " ");
+    fillArray("y", 22, 17, 12, " ");
+    fillArray("y", 18, 19, 10, " ");
+    fillArray("y", 2, 12, 5, " ");
+}
+pathing();
+
+const solveMaze = () => {
+    let mapArrayCopy = JSON.parse(JSON.stringify(mapArray.value));
+    let start = findStartEnd(mapArrayCopy, "S");
+    let end = findStartEnd(mapArrayCopy, "E");
+    
+    fillMaze(mapArrayCopy, start);
+    followSolution(mapArrayCopy, end);
+    mapArray.value = mapArrayCopy;
+};
+
+// track backwards from end to start, mark route with "O"
+const followSolution = (maze, end) => {
+    let height = maze.length;
+    let width = maze[0].length;
+    let cur_step = parseInt(maze[end[0]][end[1]]);
+    
+    maze[end[0]][end[1]] = "O";
+    
+    // while start not reached
+    while (cur_step > 1) {
+        let y = end[0];
+        let x = end[1];
+        let get_out = false;
+        
+        // check neighbors (up, right, down, left)
+        for (let ny = -1; ny <= 1; ny++) {
+            for (let nx = -1; nx <= 1; nx++) {
+                if (Math.abs(ny) === Math.abs(nx) || y + ny < 0 || y + ny >= height || x + nx < 0 || x + nx >= width)
+                    continue;
+                
+                // if neighbor is 1 less mark index for route = "O"
+                if (maze[y + ny][x + nx] === (cur_step - 1).toString()) {
+                    end = [y + ny, x + nx];
+                    cur_step = parseInt(maze[end[0]][end[1]]);
+                    maze[y + ny][x + nx] = "O";
+                    get_out = true;
+                    break;
+                }
+            }
+            if (get_out) break;
+        }
+    }
+};
+
+// loops 2d array to find val, 
+const findStartEnd = (maze, val) => {
+    let height = maze.length;
+    let width = maze[0].length;
+    
+    // loops height times width of 2d array
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            if (maze[y][x] === val) {
+
+                // check neighbors (up, right, down, left)
+                for (let ny = -1; ny <= 1; ny++) {
+                    for (let nx = -1; nx <= 1; nx++) {
+                        if (Math.abs(ny) === Math.abs(nx) || y + ny < 0 || y + ny >= height || x + nx < 0 || x + nx >= width)
+                            continue;
+
+                        // if up, right, down or left = " " return coordinates
+                        if (maze[y + ny][x + nx] === " ")
+                            return [y + ny, x + nx];
+                    }
+                }
+            }
+        }
+    }
+};
+
+//fill 2d array 1 node at a time increment by 1
+const fillMaze = (maze, start) => {
+    maze[start[0]][start[1]] = "1";
+    let height = maze.length;
+    let width = maze[0].length;
+    let queue = start.slice();
+    
+    // while no empty path
+    while (queue.length !== 0) {
+        let y = queue.shift();
+        let x = queue.shift();
+        let cur_val = parseInt(maze[y][x]);
+        
+        // check neighbors (up, right, down, left)
+        for (let ny = -1; ny <= 1; ny++) {
+            for (let nx = -1; nx <= 1; nx++) {
+                if (Math.abs(ny) === Math.abs(nx) || y + ny < 0 || y + ny >= height || x + nx < 0 || x + nx >= width)
+                    continue;
+
+                // path available then set to +1
+                if (maze[y + ny][x + nx] === " ") {
+                    maze[y + ny][x + nx] = (cur_val + 1).toString();
+                    queue.push(y + ny);
+                    queue.push(x + nx);
+                }
+            }
+        }
+    }
+};
 
 // match ids from url and item list
 watch(isLoading, () => {
-    for(let i=0; i<items.value.length; i++){
-        if(items.value[i].id == chosenItemId){
-            fillArray("x", items.value[i].mapCol, items.value[i].mapRow, 1, 1);
-            markArrayRoute(chosenItemId);
+    for (let i=0; i<items.value.length; i++) {
+        if (items.value[i].id == chosenItemId) {
+            
+            // set start and end coordinates of chosen item
+            fillArray("x", 29, 26, 1, "S");
+            fillArray("x", items.value[i].mapCol, items.value[i].mapRow, 1, "E");
+            solveMaze();
+            drawMap();
         }
-        drawMap();
     }
 });
 
@@ -114,16 +185,18 @@ const drawMap = () => {
     let img = document.getElementById("itemLocationImg");
     ctx = canvasMap.value.getContext("2d");
     ctx.clearRect(0, 0, canvasMap.width, canvasMap.height);
-    for(let y=0; y < mapArray.length; y++){
-        for(let x=0; x < mapArray[0].length; x++){
+    for(let y=0; y < mapArray.value.length; y++){
+        for(let x=0; x < mapArray.value[0].length; x++){
+
             // draws img where value of 2d array index = 1
-            if([mapArray[y][x]][0] == 1){
+            if([mapArray.value[y][x]][0] == "E"){
                 ctx.drawImage(img, x * tileSize - (tileSize / 8), y * tileSize - (tileSize / 8), tileSize*1.2, tileSize*1.2);
             }
-            // draw dotted line where value of 2d array index = 2
-            if([mapArray[y][x]][0] == 2){
-                ctx.fillStyle = ["", "", "#18AA04"][mapArray[y][x]]
-                ctx.fillRect(x * tileSize, y * tileSize, tileSize/2, tileSize/2)
+
+            // draw dotted line where value of 2d array index = "O" 
+            if([mapArray.value[y][x]][0] == "O"){
+                ctx.fillStyle = "#18AA04";
+                ctx.fillRect(x * tileSize, y * tileSize, tileSize / 2, tileSize / 2)
             }
         }
     }
