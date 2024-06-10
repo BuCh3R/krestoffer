@@ -22,11 +22,6 @@ export function useDatabase() {
         return obj.name.toLowerCase().includes(search.value.toLowerCase());
       })
       items.value = results;
-      if(results.length < 1){
-        console.log("ingen resultater");
-      }else{
-        console.log(results);
-      }
     })
     .finally(() => {
       isLoading.value = false;

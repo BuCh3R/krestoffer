@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import { useDatabase } from './DBConnection.vue';
 import { RouterView } from 'vue-router';
 
@@ -55,22 +55,27 @@ watch(search, () => {
     <div v-else>
       <div v-for="item in items" :key="item.id">
         <div>
-          <div>
-            <img v-bind:src="item.itemImage" />
-          </div>
           <div class="itemBox">
-            <div class="imgBox"><img class="itemImg" v-bind:src="item.img"></div>
-            <div class="textBox">
-              <div class="itemName"> {{ item.name }} </div><br>
-              <p>Pris</p>
-              <!-- if item is discount stroke normal price and show discountprice else show normal price -->
-              <div class="itemPrice" v-if="!item.isDiscount"> {{ item.price }} kr</div>
-              <div class="itemPrice" v-else> <del class="itemDiscount">{{ item.price }} kr</del> {{ item.discountPrice }} kr</div><br><br>
-              <div><RouterLink :to="{ path: `/Map/${item.id}` }"><button class="mapButton">Se på kort</button></RouterLink></div>
-            </div>
+            <RouterLink :to="{ path: `/Map/${item.id}` }">
+              <div class="imgBox"><img class="itemImg" v-bind:src="item.img"></div>
+              <div class="textBox">
+                <div class="itemName"> {{ item.name }} </div><br>
+                <p>Pris</p>
+                <!-- if item is discount stroke normal price and show discountprice else show normal price -->
+                <div class="itemPrice" v-if="!item.isDiscount"> {{ item.price }} kr</div>
+                <div class="itemPrice" v-else> <del class="itemDiscount">{{ item.price }} kr</del> {{ item.discountPrice }} kr</div><br><br>
+                <div><button class="mapButton">Find "{{ item.name }}" her</button></div>
+              </div>
+            </RouterLink>
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+<style>
+.popup_flight_travlDil {
+  visibility: hidden;
+  opacity: 0;
+}
+</style>

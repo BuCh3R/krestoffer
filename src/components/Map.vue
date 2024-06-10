@@ -40,6 +40,9 @@ function fillArray(direction, collumn, row, amount, value){
     }
 }
 
+
+
+
 function pathing(){
 
     // standard route

@@ -104,14 +104,18 @@ h2{
 
 .itemBox {
     display: block;
+    position: relative;
+    top: 24px;
     margin: auto;
     width: 70%;
     background-color: $second-backgroundcolor;
     border: $border;
     box-shadow: 10px 10px 10px #f2f2f2;
-    margin-bottom: 10px;
+    margin-bottom: 16px;
 }
-
+.itemBox p{
+    color: #000;
+}
 .imgBox > * {
     flex-basis: 100%;
   }
@@ -123,7 +127,9 @@ h2{
     width: 25%;
     background-color: $second-backgroundcolor;
 }
-
+.itemName{
+    color: #000;
+}
 .textBox > * {
     flex-basis: 100%;
   }
